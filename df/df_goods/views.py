@@ -24,7 +24,7 @@ def index(request):
 
     return render(request, "df_goods/index.html",context)
 
-def detail(request,t):
+def detail_list(request,t):
     p = int(request.GET.get("page",1))
     good_type = TypeInfo.objects.get(id=t)
     list_id = good_type.goodsinfo_set.order_by("-id")[:3]
