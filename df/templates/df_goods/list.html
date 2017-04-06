@@ -16,7 +16,7 @@
 				</ul>
 			</div>
 			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
+				<li><a href="/">首页</a></li>
 				<li class="interval">|</li>
 				<li><a href="">手机生鲜</a></li>
 				<li class="interval">|</li>
@@ -41,8 +41,8 @@
 				<ul>
 				{%for ob in id %}
 					<li>
-						<a href="#"><img src=/static/{{ob.gpic}}></a>
-						<h4><a href="#">{{ob.gtitle}}</a></h4>
+						<a href="/detail/{{t}}/?id={{ob.id}}"><img src=/static/{{ob.gpic}}></a>
+						<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
 						<div class="prize">￥{{ob.gprice}}</div>
 					</li>
 				{%endfor%}
@@ -60,8 +60,8 @@
 			<ul class="goods_type_list clearfix">
 				{%for ob in click %}
 				<li>
-					<a href="detail.html"><img src="/static/{{ob.gpic}}"></a>
-					<h4><a href="detail.html">{{ob.gtitle}}</a></h4>
+					<a href="/detail/{{t}}/?id={{ob.id}}"><img src="/static/{{ob.gpic}}"></a>
+					<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{ob.gprice}}</span>
 						<span class="unit">{{ob.gunit}}</span>
