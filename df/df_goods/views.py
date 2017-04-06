@@ -42,4 +42,14 @@ def detail_list(request,t):
 
     return render(request, "df_goods/list.html",context)
 
+def detail(request,t):
+    aGoods_id = int(request.GET.get("id",1))
+
+    good_type = TypeInfo.objects.get(id=t)
+    list_id = good_type.goodsinfo_set.order_by("-id")[:2]
+
+    oGoods = GoodsInfo.objects.get(id=aGoods_id)
+    context = {"title":"商品详情","id":list_id,"oGoods":oGoods,"type":good_type}
+
+    return render(request, "df_goods/detail.html", context)
 
