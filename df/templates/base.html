@@ -5,6 +5,24 @@
   <title>天天生鲜-{{title}}</title>
   <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
   <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+  <script type="text/javascript">
+
+  $(function(){
+
+  
+      var name  = $.cookie('uname');
+      if(name != "")
+      {
+      $(".login_info em").html(name)
+      $(".login_btn").hide()
+      $(".login_info").show()
+      }
+  })
+
+  </script>
+
   {%block bjs%}   {%endblock bjs%}
 </head>
 
@@ -16,7 +34,7 @@
       <div class="welcome fl">欢迎来到天天生鲜!</div>
       <div class="fr">
         <div class="login_info fl">
-          欢迎您：<em>张 山</em>
+          欢迎您：<em></em>
         </div>
         <div class="login_btn fl">
           <a href="/user/login/">登录</a>
@@ -36,7 +54,7 @@
   </div>
 
   <div class="search_bar clearfix">
-    <a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+    <a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
     <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</div>
     <div class="search_con fr">
       <input type="text" class="input_text fl" name="" placeholder="搜索商品">

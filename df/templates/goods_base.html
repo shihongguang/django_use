@@ -9,6 +9,22 @@
   <link rel="stylesheet" type="text/css" href="/static/css/main.css">
   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+   <script type="text/javascript">
+
+  $(function(){
+
+  
+      var name  = $.cookie('uname');
+      if(name != "")
+      {
+      $(".login_info em").html(name)
+      $(".login_btn").hide()
+      $(".login_info").show()
+      }
+  })
+
+  </script>
 
 {%block scr%}
 {%endblock scr%}
