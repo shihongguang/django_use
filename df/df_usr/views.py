@@ -16,6 +16,9 @@ from hashlib import sha1
 
 from django.shortcuts import render,redirect
 from df_usr.models import *
+from df_usr.usr_wrap import *
+
+
 
 # Create your views here.
 
@@ -74,5 +77,6 @@ def info(request):
 def order(request):
     return render(request,"df_usr/user_center_order.html")
 #收货地址
+@login_check
 def site(request):
     return render(request,"df_usr/user_center_site.html")
