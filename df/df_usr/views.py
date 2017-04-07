@@ -3,6 +3,11 @@
 """
 df_usr:views
 urls必须对应一个模板，否则会出现错误提示。
+
+if后面没有：会报错，提示 invalid syntax 
+如果if里面没有语句会提示预付错误 SyntaxError，找不到变量也会有这个提示
+
+== 写成 = 
 """
 from hashlib import sha1
 
@@ -19,11 +24,17 @@ def login_handle(request):
     upwd = news.get('pwd')
     static = news.get('static',0)
     print(uname,upwd,static)
-    UsrInfo
+    try:
+        user = UsrInfo.objects.get(uname=uname)
+    except:
+        return redirect("/user/info/")
+    else:
+        if upwd == user.upwd:
+            return redirect("/")
 
-
-
-    return redirect("/")
+def register(request):
+    
+    return redirect("/user/info/")
 
 
 
