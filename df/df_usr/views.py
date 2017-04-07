@@ -18,6 +18,7 @@ from df_usr.models import *
 
 def login(request):
     return render(request,"df_usr/login.html")
+
 def login_handle(request):
     news = request.POST
     uname = news.get('username')
@@ -25,17 +26,43 @@ def login_handle(request):
     static = news.get('static',0)
     print(uname,upwd,static)
     try:
-        user = UsrInfo.objects.get(uname=uname)
-    except:
-        return redirect("/user/info/")
+        user = UserInfo.objects.get(uname=uname)
+    except Exception as e:
+        print ("error info",e)
+        return redirect("/user/login/")
     else:
-        if upwd == user.upwd:
-            return redirect("/")
+        print(user)
+    
+    return redirect("/")
+
+
 
 def register(request):
-    
-    return redirect("/user/info/")
+    return render(request,"df_usr/register.html") 
 
+def register_handle(request):
+    #post方法
+    #html中的跳转路径必须时/user/register_handle/，没有最后的/会报错
+    news = request.POST
+    uname=news.get('user_name')
+    upwd=news.get('pwd')
+    upwd2=news.get('cpwd')
+    uemail=news.get('email')
+    #判断两次密码
+    if upwd!=upwd2:
+        return redirect('/user/register/')
+    #密码加密
+    s1=sha1()
+    s1.update(upwd)
+    upwd3=s1.hexdigest()
+    #创建对象
+    user=UserInfo()
+    user.uname=uname
+    user.upwd=upwd3
+    user.uemail=uemail
+    user.save()
+    #注册成功，转到登录页面
+    return redirect('/user/login/')
 
 
 def info(request):
