@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    #如果不安装应用，执行生成迁移文件时，无法检测到该应用下的models文件
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'tinymce',
     'df_goods',
+    'df_usr',
 )
 
 MIDDLEWARE_CLASSES = (
