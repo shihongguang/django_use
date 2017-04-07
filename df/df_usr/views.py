@@ -8,6 +8,9 @@ if后面没有：会报错，提示 invalid syntax
 如果if里面没有语句会提示预付错误 SyntaxError，找不到变量也会有这个提示
 
 == 写成 = 
+
+
+
 """
 from hashlib import sha1
 
@@ -64,6 +67,12 @@ def register_handle(request):
     #注册成功，转到登录页面
     return redirect('/user/login/')
 
-
+#个人信息
 def info(request):
     return render(request,"df_usr/user_center_info.html")
+
+def order(request):
+    return render(request,"df_usr/user_center_order.html")
+#收货地址
+def site(request):
+    return render(request,"df_usr/user_center_site.html")
