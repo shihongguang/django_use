@@ -9,4 +9,5 @@ cart:urls
 
 urlpatterns = [
     url(r'^cart/$', views.cart),
+    url(r'^add_cart/$', views.add_cart),
 ]

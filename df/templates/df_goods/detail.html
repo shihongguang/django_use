@@ -1,5 +1,55 @@
 {% extends "goods_base.html"%}
 
+{%block scr%}
+<script type="text/javascript">
+
+	$(function(){
+		var iId = $("#gid").val()
+		var iNum = parseInt($(".num_show").val());
+		var sSp = $(".show_pirze em").html();
+		var iSp =parseFloat(sSp.substring(0,sSp.length)) 
+		var iTp
+
+		var cartObj = new Array([5])
+
+		$(".add").click(function(){
+			iNum += 1;
+			$(".num_show").val(iNum)
+			iTp = (iNum * iSp).toFixed(2)
+			$(".total em").html(iTp+"元")	
+		})
+
+		$(".minus").click(function(){
+			if(iNum<2)
+			{
+				return;
+			}
+			iNum -= 1;
+			$(".num_show").val(iNum)
+			iTp = (iNum * iSp).toFixed(2)
+			$(".total em").html(iTp+"元")			
+		})
+
+			/*	<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>*/
+		$(".add_cart").click(function(){
+
+/*			cart = String(iId) +"!" +String(iNum)
+			cartObj.unshift(cart)
+			alert(cartObj)*/
+
+			$.get("/add_cart/",{"id":iId,"num":iNum})
+
+
+		})
+
+
+	})
+
+</script>
+
+{%endblock scr%}
+
 {%block meau%}
 	<div class="navbar_con">
 		<div class="navbar clearfix">
@@ -28,6 +78,8 @@
 {%endblock meau%}
 
 {%block main%}
+	<input type="hidden" id="gid" value="{{oGoods.id}}">
+
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
@@ -71,7 +123,7 @@
 					<li>
 						<a href="#"><img src="/static/{{ob.gpic}}"></a>
 						<h4><a href="#">{{ob.gtitle}}</a></h4>
-						<div class="prize">￥{{ob.price}}</div>
+						<div class="prize">￥{{ob.gprice}}</div>
 					</li>
 {%endfor%}
 				</ul>
