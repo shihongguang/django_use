@@ -15,6 +15,7 @@ if后面没有：会报错，提示 invalid syntax
 from hashlib import sha1
 
 from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect
 from df_usr.models import *
 from df_usr.usr_wrap import *
 
@@ -23,9 +24,18 @@ from df_usr.usr_wrap import *
 # Create your views here.
 
 def login(request):
-    return render(request,"df_usr/login.html")
+    uname=request.COOKIES.get('uname','')
+    context = {"uname":uname}
+    return render(request,"df_usr/login.html", context)
 
 def login_handle(request):
+    # 查询用户最近的跳转地址，如果没有默认为根目录
+    url=request.COOKIES.get('url','/')
+    # 构造最近跳转地址的Response对象
+    red = HttpResponseRedirect(url)
+
+
+    #获得玩家post提交信息
     news = request.POST
     uname = news.get('username')
     upwd = news.get('pwd')
@@ -38,8 +48,19 @@ def login_handle(request):
         return redirect("/user/login/")
     else:
         print(user)
-    
-    return redirect("/")
+        print(url)
+        # 成功登陆后设置cookie中的url为空，保存时间为-1秒，即立即删除
+        red.set_cookie("url",'',max_age=-1)
+
+        if static != 0:
+            red.set_cookie('uname',uname)
+        else:
+            red.set_cookie('uname','',max_age=-1)
+        #登陆成功记录用户的登陆状态，使用session进行记录，在request中进行设置
+        request.session['user_id']=user.id
+        request.session['user_name']=uname
+    finally:
+       return red
 
 
 
