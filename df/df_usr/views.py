@@ -92,9 +92,12 @@ def register_handle(request):
     return redirect('/user/login/')
 
 #个人信息
+@login_check
 def info(request):
     return render(request,"df_usr/user_center_info.html")
 
+#订单信息    
+@login_check
 def order(request):
     return render(request,"df_usr/user_center_order.html")
 #收货地址
