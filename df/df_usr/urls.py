@@ -2,7 +2,7 @@
 
 """
 df_usr:urls
-如果这个页面的urls配置错误会影响其他页面的显示
+子页面的urls配置错误会影响其他页面的显示
 """
 
 from django.conf.urls import include, url
@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^user/info/$',views.info),
     url(r'^user/order/$',views.order),
     url(r'^user/site/$',views.site),
+
 ]

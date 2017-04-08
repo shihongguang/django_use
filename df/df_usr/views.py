@@ -94,13 +94,32 @@ def register_handle(request):
 #个人信息
 @login_check
 def info(request):
-    return render(request,"df_usr/user_center_info.html")
+    user_id = request.session.get("user_id")
+    user = UserInfo.objects.get(pk=user_id)
+
+    context = {"title":"个人信息","tyle":1,"user":user}
+    return render(request,"df_usr/user_center_info.html",context)
 
 #订单信息    
 @login_check
 def order(request):
-    return render(request,"df_usr/user_center_order.html")
+    context = {"title":"订单信息","tyle":2}
+    return render(request,"df_usr/user_center_order.html",context)
 #收货地址
 @login_check
 def site(request):
-    return render(request,"df_usr/user_center_site.html")
+    user_id = request.session.get("user_id")
+    user = UserInfo.objects.get(pk=user_id)
+
+    messages = request.GET
+    if messages.get("ushou",0):
+        user.ushou = messages.get("ushou")
+        user.uaddress = messages.get("uaddress")
+        user.uyoubian = messages.get("uyoubian")
+        user.uphone = messages.get("uphone")
+        user.save()
+
+    context = {"title":"收货信息","user":user}
+    return render(request,"df_usr/user_center_site.html",context)
+
+
