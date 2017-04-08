@@ -27,6 +27,9 @@ def index(request):
 def detail_list(request,t):
     p = int(request.GET.get("page",1))
     good_type = TypeInfo.objects.get(id=t)
+
+    print(good_type)
+
     list_id = good_type.goodsinfo_set.order_by("-id")[:3]
     list_click = good_type.goodsinfo_set.order_by("-gclick")
 
@@ -36,7 +39,8 @@ def detail_list(request,t):
     click = list_click_p.page(p)    
     
     context = {"title":"商品列表","id":list_id,"click":click,"pages":list_page,
-                "prev_page":p-1,"next_page":p+1,"t":t,"p":p
+                "prev_page":p-1,"next_page":p+1,"t":t,"p":p,
+                "type":good_type
             }
 
     return render(request, "df_goods/list.html",context)

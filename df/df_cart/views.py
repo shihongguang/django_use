@@ -47,6 +47,11 @@ def add_cart(request):
     else:
         return redirect('/cart/')
 
+#主页购物车数量ajax刷新数据
+def cart_num(request):
+    user_id = request.session.get("user_id")
+    count=CartInfo.objects.filter(user_id=user_id).count()  
+    return JsonResponse({'count':count})
 
 #购物车内数据修改
 #数量修改

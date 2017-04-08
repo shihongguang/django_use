@@ -10,6 +10,22 @@
   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+  {%if request.session.user_name|default:'' != ''%}
+  <script type="text/javascript">
+    $(function(){
+
+      $.get("/cart_num/",function(data){
+           $("#show_count").html(data["count"])
+
+      })  
+
+
+    })
+
+
+  </script>
+  {%endif%}
+
 {%block scr%}
 {%endblock scr%}
 
@@ -50,10 +66,13 @@
       <input type="text" class="input_text fl" name="" placeholder="搜索商品">
       <input type="button" class="input_btn fr" name="" value="搜索">
     </div>
+    {%if request.session.user_name|default:'' != ''%}
     <div class="guest_cart fr">
       <a href="/cart/" class="cart_name fl">我的购物车</a>
-      <div class="goods_count fl" id="show_count">1</div>
+      <div class="goods_count fl" id="show_count"> </div>
     </div>
+    {%endif%}
+
   </div>
 
 {%block meau%}

@@ -10,6 +10,7 @@ cart:urls
 urlpatterns = [
     url(r'^cart/$', views.cart),
     url(r'^add_cart/$', views.add_cart),
+    url(r'^cart_num/$', views.cart_num),
     url(r'^cart/edit(\d+)_(\d+)/$',views.edit),
     url(r'^cart/delete(\d+)/$',views.delete),
 
