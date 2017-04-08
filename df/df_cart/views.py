@@ -11,14 +11,16 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 
 from df_cart.models import *
+from df_usr.usr_wrap import *
 
+@login_check
 def cart(request):
     uid=request.session['user_id']
     carts=CartInfo.objects.filter(user_id=uid)
     context={'title':'购物车',
              'carts':carts}
     return render(request,'df_cart/cart.html',context)
-
+@login_check
 def add_cart(request):
     user_id = request.session.get("user_id")
     news = request.GET
@@ -48,6 +50,7 @@ def add_cart(request):
 
 #购物车内数据修改
 #数量修改
+@login_check
 def edit(request,cart_id,count):
     count1=1
     try:
@@ -61,6 +64,7 @@ def edit(request,cart_id,count):
     return JsonResponse(data)
 
 #删除该条购物车数据
+@login_check
 def delete(request,cart_id):
     try:
         cart=CartInfo.objects.get(pk=int(cart_id))

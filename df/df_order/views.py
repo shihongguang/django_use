@@ -5,11 +5,12 @@ from df_usr.models import UserInfo
 from df_cart.models import *
 #事务模块
 from django.db import transaction
-
+from df_usr.usr_wrap import *
 from models import *
 from datetime import datetime
 from decimal import Decimal
 
+@login_check
 def order(request):
     #查询用户对象
     user=UserInfo.objects.get(id=request.session['user_id'])
@@ -36,6 +37,7 @@ def order(request):
 5、删除购物车
 '''
 
+@login_check
 @transaction.atomic()
 def order_handle(request):
     tran_id=transaction.savepoint()
@@ -85,7 +87,7 @@ def order_handle(request):
     # return HttpResponse('ok')
     return redirect('/user/order/')
 
-
+@login_check
 def pay(request,oid):
     order=OrderInfo.objects.get(oid=oid)
     order.oIsPay=True

@@ -1,8 +1,6 @@
 {% extends "base.html"%}
 
-
 {%block main%}
-
   <div class="main_con clearfix">
     <div class="left_menu_con clearfix">
       <h3>用户中心</h3>
@@ -13,7 +11,6 @@
         <li><a href="/user/order/">· 全部订单</a></li>
         <li><a href="/user/site/">· 收货地址</a></li>
         {%elif tyle = 2%}
-
         <li><a href="/user/info/">· 个人信息</a></li>
         <li><a href="/user/order/" class="active">· 全部订单</a></li>
         <li><a href="/user/site/">· 收货地址</a></li>
@@ -22,15 +19,11 @@
         <li><a href="/user/order/">· 全部订单</a></li>
         <li><a href="/user/site/" class="active">· 收货地址</a></li>
         {%endif%}
-
         {%endblock li%}
-
       </ul>
     </div>
-
 {%block other%}
 {%endblock other%}
-
   </div>
 
 {%endblock main%}

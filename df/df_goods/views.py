@@ -1,15 +1,14 @@
 #coding=utf-8
+"""
+df_goods:view
+"""
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
 from models import *
 from django.core.paginator import Paginator
 
 
-
 def index(request):
-    
     list_type = TypeInfo.objects.order_by("id")
     
     list_id_goods = []
@@ -36,7 +35,6 @@ def detail_list(request,t):
 
     click = list_click_p.page(p)    
     
-
     context = {"title":"商品列表","id":list_id,"click":click,"pages":list_page,
                 "prev_page":p-1,"next_page":p+1,"t":t,"p":p
             }
