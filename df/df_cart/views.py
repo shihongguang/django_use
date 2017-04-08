@@ -44,3 +44,32 @@ def add_cart(request):
         return JsonResponse({'cart_id':cart_info.id,'count':count})
     else:
         return redirect('/cart/')
+
+
+#购物车内数据修改
+#数量修改
+def edit(request,cart_id,count):
+    count1=1
+    try:
+        cart=CartInfo.objects.get(pk=int(cart_id))
+        count1=cart.count
+        cart.count=int(count)
+        cart.save()
+        data={'ok':0}
+    except Exception as e:
+        data={'ok':count1}
+    return JsonResponse(data)
+
+#删除该条购物车数据
+def delete(request,cart_id):
+    try:
+        cart=CartInfo.objects.get(pk=int(cart_id))
+        cart.delete()
+        data={'ok':1}
+    except Exception as e:
+        data={'ok':0}
+    return JsonResponse(data)
+
+
+
+

@@ -1,4 +1,26 @@
 {%extends "base.html"%}
+{%block bjs%}
+{%endblock bjs%}
+<script type="text/javascript">
+
+$(function () {
+  total1=0;//商品总个数
+	total2=0;//商品总金额
+	$('.col07').each(function () {
+	    count=parseInt($(this).prev().text());
+		price=parseFloat($(this).prev().prev().children('span').text());
+		total=count*price;
+		$(this).text(total.toFixed(2)+'元');
+		total1++;
+		total2+=total;
+    });
+	$('#total1').text(total1);
+	$('#total2').text(total2.toFixed(2));
+	$('#total3').text((total2+10).toFixed(2));
+	$('#total4').val((total2+10).toFixed(2));
+});
+
+</script>
 
 {%block main%}
 	
@@ -7,10 +29,9 @@
 	<div class="common_list_con clearfix">
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+			<dd>{{user.uaddress}} （{{user.ushou}} 收） {{user.uphone}}</dd>
 		</dl>
 		<a href="/user/site/" class="edit_site">编辑收货地址</a>
-
 	</div>
 	
 	<h3 class="common_title">支付方式</h3>	
@@ -37,39 +58,43 @@
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>		
 		</ul>
+
+		{%for cart in carts%}
 		<ul class="goods_list_td clearfix">
-			<li class="col01">1</li>			
-			<li class="col02"><img src="images/goods/goods012.jpg"></li>
-			<li class="col03">奇异果</li>
-			<li class="col04">500g</li>
-			<li class="col05">25.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">25.80元</li>	
+			<li class="col01">{{forloop.counter}}</li>
+			<li class="col02"><img src="/static/{{cart.goods.gpic}}"></li>
+			<li class="col03">{{cart.goods.gtitle|slice:'10'}}...</li>
+			<li class="col04">{{cart.goods.gunit}}</li>
+			<li class="col05"><span>{{cart.goods.gprice}}</span>元</li>
+			<li class="col06">{{cart.count}}</li>
+			<li class="col07">100元</li>
 		</ul>
-		<ul class="goods_list_td clearfix">
-			<li class="col01">2</li>			
-			<li class="col02"><img src="images/goods/goods003.jpg"></li>
-			<li class="col03">大兴大棚草莓</li>
-			<li class="col04">500g</li>
-			<li class="col05">16.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">16.80元</li>	
-		</ul>
+		{%endfor%}
+
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>
 
 	<div class="common_list_con clearfix">
 		<div class="settle_con">
-			<div class="total_goods_count">共<em>2</em>件商品，总金额<b>42.60元</b></div>
+			<div class="total_goods_count">
+				共<em id="total1">2</em>件商品，
+				总金额<b id="total2">42.60元</b></div>
 			<div class="transit">运费：<b>10元</b></div>
-			<div class="total_pay">实付款：<b>52.60元</b></div>
+			<div class="total_pay">实付款：
+				<b id="total3">52.60元</b></div>
 		</div>
 	</div>
 
 	<div class="order_submit clearfix">
-		<a href="javascript:;" id="order_btn">提交订单</a>
-	</div>	
+		<form method="post" action="/order/order_handle/">
+			{%csrf_token%}
+			<input type="hidden" name="address" value="{{user.uaddress}} （{{user.ushou}} 收） {{user.uphone}}">
+			<input type="hidden" id="total4" name="total" value="0">
+			<input type="hidden" name="cart_ids" value="{{cart_ids}}">
+			<input type="submit" id="order_btn" value="提交订单">
+		</form>
+	</div>
 
 
 	<div class="popup_con">
