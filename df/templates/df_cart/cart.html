@@ -11,39 +11,25 @@
 		<li class="col05">小计</li>
 		<li class="col06">操作</li>
 	</ul>
+	{%for ob in carts%}
 	<ul class="cart_list_td clearfix">
 		<li class="col01"><input type="checkbox" name="" checked></li>
-		<li class="col02"><img src="images/goods/goods012.jpg"></li>
-		<li class="col03">奇异果<br><em>25.80元/500g</em></li>
-		<li class="col04">500g</li>
-		<li class="col05">25.80元</li>
+		<li class="col02"><img src="/static/{{ob.goods.gpic}}"></li>
+		<li class="col03">{{ob.goods.gtitle}}<br><em>{{ob.goods.gprice}}元/{{ob.goods.gunit}}</em></li>
+		<li class="col04">{{ob.goods.gunit}}</li>
+		<li class="col05">{{ob.goods.gprice}}元</li>
 		<li class="col06">
 			<div class="num_add">
 				<a href="javascript:;" class="add fl">+</a>
-				<input type="text" class="num_show fl" value="1">	
+				<input type="text" class="num_show fl" value="{{ob.count}}">	
 				<a href="javascript:;" class="minus fl">-</a>	
 			</div>
 		</li>
 		<li class="col07">25.80元</li>
 		<li class="col08"><a href="javascript:;">删除</a></li>
 	</ul>
+	{%endfor%}
 
-	<ul class="cart_list_td clearfix">
-		<li class="col01"><input type="checkbox" name="" checked></li>
-		<li class="col02"><img src="images/goods/goods003.jpg"></li>
-		<li class="col03">大兴大棚草莓<br><em>16.80元/500g</em></li>
-		<li class="col04">500g</li>
-		<li class="col05">16.80元</li>
-		<li class="col06">
-			<div class="num_add">
-				<a href="javascript:;" class="add fl">+</a>
-				<input type="text" class="num_show fl" value="1">	
-				<a href="javascript:;" class="minus fl">-</a>	
-			</div>
-		</li>
-		<li class="col07">16.80元</li>
-		<li class="col08"><a href="javascript:;">删除</a></li>
-	</ul>
 	
 
 	<ul class="settlements">
