@@ -10,24 +10,6 @@
   <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
-   <script type="text/javascript">
-
-  $(function(){  
-      var name  = $.cookie('uname');
-      if(name != "")
-      {
-      $(".login_info em").html(name)
-      $(".login_btn").hide()
-      $(".login_info").show()
-      }
-      else
-      {
-        $(".guest_cart").hide()
-      }
-  })
-
-  </script>
-
 {%block scr%}
 {%endblock scr%}
 
@@ -37,14 +19,19 @@
     <div class="header">
       <div class="welcome fl">欢迎来到天天生鲜!</div>
       <div class="fr">
-        <div class="login_info fl">
-          欢迎您：<em>张 山</em>
+        {%if request.session.user_name|default:'' != ''%}
+        <div class="login_info fl" style="display:block">
+          欢迎您：<em>{{request.session.user_name}}</em>
+          <span>|</span>
+          <a href="/user/login_out/">退出</a>
         </div>
+        {%else%}
         <div class="login_btn fl">
           <a href="/user/login/">登录</a>
           <span>|</span>
           <a href="/user/register/">注册</a>
         </div>
+        {%endif%}
         <div class="user_link fl">
           <span>|</span>
           <a href="/user/info/">用户中心</a>

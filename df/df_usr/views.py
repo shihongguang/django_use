@@ -1,5 +1,4 @@
 #coding=utf-8
-
 """
 df_usr:views
 urls必须对应一个模板，否则会出现错误提示。
@@ -9,8 +8,6 @@ if后面没有：会报错，提示 invalid syntax
 
 == 写成 = 
 
-
-
 """
 from hashlib import sha1
 
@@ -18,10 +15,6 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from df_usr.models import *
 from df_usr.usr_wrap import *
-
-
-
-# Create your views here.
 
 def login(request):
     uname=request.COOKIES.get('uname','')
@@ -33,8 +26,6 @@ def login_handle(request):
     url=request.COOKIES.get('url','/')
     # 构造最近跳转地址的Response对象
     red = HttpResponseRedirect(url)
-
-
     #获得玩家post提交信息
     news = request.POST
     uname = news.get('username')
@@ -44,25 +35,20 @@ def login_handle(request):
     try:
         user = UserInfo.objects.get(uname=uname)
     except Exception as e:
-        print ("error info",e)
         return redirect("/user/login/")
     else:
-        print(user)
-        print(url)
         # 成功登陆后设置cookie中的url为空，保存时间为-1秒，即立即删除
         red.set_cookie("url",'',max_age=-1)
-
-        if static != 0:
-            red.set_cookie('uname',uname)
-        else:
-            red.set_cookie('uname','',max_age=-1)
         #登陆成功记录用户的登陆状态，使用session进行记录，在request中进行设置
         request.session['user_id']=user.id
         request.session['user_name']=uname
     finally:
        return red
 
-
+ #退出即删session      
+def login_out(request):
+    request.session.flush()
+    return redirect('/')
 
 def register(request):
     return render(request,"df_usr/register.html") 

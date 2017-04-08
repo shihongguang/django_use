@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 
 
 def index(request):
+    
     list_type = TypeInfo.objects.order_by("id")
     
     list_id_goods = []
