@@ -56,3 +56,7 @@ def detail(request,t):
 
     return render(request, "df_goods/detail.html", context)
 
+#增加全文检索视图
+def query(request):
+    return render(request,'df_goods/query.html')
+

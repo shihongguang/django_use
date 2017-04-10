@@ -1,0 +1,92 @@
+{% extends "goods_base.html"%}
+
+{%block meau%}
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>	
+				<span></span>			
+				<ul class="subnav">
+					<li><a href="/detail_list/1" class="fruit">新鲜水果</a></li>
+					<li><a href="/detail_list/2" class="seafood">海鲜水产</a></li>
+					<li><a href="/detail_list/3" class="meet">猪牛羊肉</a></li>
+					<li><a href="/detail_list/4" class="egg">禽类蛋品</a></li>
+					<li><a href="/detail_list/5" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/detail_list/6" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="/">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+{%endblock meau%}
+
+{%block main%}
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="/detail_list/{{t}}">{{type.ttitle}}</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+				{%for ob in id %}
+					<li>
+						<a href="/detail/{{t}}/?id={{ob.id}}"><img src=/static/{{ob.gpic}}></a>
+						<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
+						<div class="prize">￥{{ob.gprice}}</div>
+					</li>
+				{%endfor%}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+				<a href="#" class="active">默认</a>
+				<a href="#">价格</a>
+				<a href="#">人气</a>
+			</div>
+
+			<ul class="goods_type_list clearfix">
+				{%for ob in click %}
+				<li>
+					<a href="/detail/{{t}}/?id={{ob.id}}"><img src="/static/{{ob.gpic}}"></a>
+					<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ob.gprice}}</span>
+						<span class="unit">{{ob.gunit}}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				{%endfor%}
+			</ul>
+
+			<div class="pagenation">
+				<a href="{{t}}?page={{prev_page}}"><上一页</a>
+				{%for ob in pages %}
+
+				{%if p = ob%}
+				<a href="javascript:;" class="active">{{ob}}</a>
+				{%else%}
+				<a href="{{t}}?page={{ob}}">{{ob}}</a>
+				{%endif%}
+
+				{%endfor%}
+				<a href="{{t}}?page={{next_page}}">下一页></a>
+			</div>
+		</div>
+	</div>
+
+
+
+{%endblock main%}
