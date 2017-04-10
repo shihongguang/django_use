@@ -12,20 +12,13 @@
   <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
   {%if request.session.user_name|default:'' != ''%}
   <script type="text/javascript">
-    $(function(){
-
+    $(function(){ 
       $.get("/cart_num/",function(data){
            $("#show_count").html(data["count"])
-
       })  
-
-
     })
-
-
   </script>
   {%endif%}
-
 {%block scr%}
 {%endblock scr%}
 
