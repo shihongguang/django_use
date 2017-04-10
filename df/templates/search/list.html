@@ -31,58 +31,47 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="/detail_list/{{t}}">{{type.ttitle}}</a>
+		<a href="/detail_list/{{t}}">{{query}}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
-		<div class="l_wrap fl clearfix">
-			<div class="new_goods">
-				<h3>新品推荐</h3>
-				<ul>
-				{%for ob in id %}
-					<li>
-						<a href="/detail/{{t}}/?id={{ob.id}}"><img src=/static/{{ob.gpic}}></a>
-						<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
-						<div class="prize">￥{{ob.gprice}}</div>
-					</li>
-				{%endfor%}
-				</ul>
-			</div>
-		</div>
 
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+				<a href="#" class="active">搜索到的商品</a>
+
 			</div>
 
 			<ul class="goods_type_list clearfix">
-				{%for ob in click %}
+
+				<!-- 传递全文检索的数据,page为检索出的当页数据对象 -->
+				{%for ob in page%}
 				<li>
-					<a href="/detail/{{t}}/?id={{ob.id}}"><img src="/static/{{ob.gpic}}"></a>
-					<h4><a href="/detail/{{t}}/?id={{ob.id}}">{{ob.gtitle}}</a></h4>
+					<a href="/detail/{{t}}/?id={{ob.object.id}}"><img src="/static/{{ob.object.gpic}}"></a>
+					<h4><a href="/detail/{{t}}/?id={{ob.object.id}}">{{ob.object.gtitle}}</a></h4>
 					<div class="operate">
-						<span class="prize">￥{{ob.gprice}}</span>
-						<span class="unit">{{ob.gunit}}</span>
+						<span class="prize">￥{{ob.object.gprice}}</span>
+						<span class="unit">{{ob.object.gunit}}</span>
 						<a href="#" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
+				{%empty%}
+    		<li>啥也没找到</li>
 				{%endfor%}
 			</ul>
 
 			<div class="pagenation">
-				<a href="{{t}}?page={{prev_page}}"><上一页</a>
-				{%for ob in pages %}
+<!-- 				<a href="{{t}}?page={{prev_page}}"><上一页</a>
+{%for ob in pages %}
 
-				{%if p = ob%}
-				<a href="javascript:;" class="active">{{ob}}</a>
-				{%else%}
-				<a href="{{t}}?page={{ob}}">{{ob}}</a>
-				{%endif%}
+{%if p = ob%}
+<a href="javascript:;" class="active">{{ob}}</a>
+{%else%}
+<a href="{{t}}?page={{ob}}">{{ob}}</a>
+{%endif%}
 
-				{%endfor%}
-				<a href="{{t}}?page={{next_page}}">下一页></a>
+{%endfor%}
+<a href="{{t}}?page={{next_page}}">下一页></a> -->
 			</div>
 		</div>
 	</div>
