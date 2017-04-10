@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from models import *
 from django.core.paginator import Paginator
 
+from haystack.generic_views import SearchView
+
 
 def index(request):
     list_type = TypeInfo.objects.order_by("id")
@@ -48,15 +50,21 @@ def detail_list(request,t):
 def detail(request,t):
     aGoods_id = int(request.GET.get("id",1))
 
+    #找出同类型的两种最新商品
     good_type = TypeInfo.objects.get(id=t)
     list_id = good_type.goodsinfo_set.order_by("-id")[:2]
 
+    #找到该商品
     oGoods = GoodsInfo.objects.get(id=aGoods_id)
+    #用户每次选择该商品,就增加一次该商品的点击量
+    oGoods.gclick = oGoods.gclick+1
+    oGoods.save()
+
+
     context = {"title":"商品详情","id":list_id,"oGoods":oGoods,"type":good_type}
 
     return render(request, "df_goods/detail.html", context)
 
-#增加全文检索视图
+#增加全文检索测试视图
 def query(request):
     return render(request,'df_goods/query.html')
-
