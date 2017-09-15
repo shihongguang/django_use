@@ -7,6 +7,8 @@ from view import *
 
 @instance(login_required)
 class Test(view):
-    pass
+
+    def get(self):
+        return self.HttpResponse("ni hao shihongguang")
 
 ```
